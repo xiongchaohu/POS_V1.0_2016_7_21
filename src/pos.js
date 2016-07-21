@@ -55,24 +55,24 @@ function getSubTotal(cartItems)
     return beforePromotedCartItems;
 }
 
-function getDetailedCartItems(cartItems,allPromotedInfos){
+function getDetailedCartItems(beforePromotedCartItems,allPromotedInfos){
 
     let detailedCartItems=[];
-    for(let i=0;i<cartItems.length;i++)
+    for(let i=0;i<beforePromotedCartItems.length;i++)
     {
         for(let j=0;j<allPromotedInfos.length;j++)
         {
             for(let k=0;k<allPromotedInfos[j].barcodes.length;k++)
             {
-                if(cartItems[i].barcode===allPromotedInfos[j].barcodes[k]) {
+                if(beforePromotedCartItems[i].barcode===allPromotedInfos[j].barcodes[k]) {
                     if (allPromotedInfos[j].type === 'BUY_TWO_GET_ONE_FREE') {
 
-                        detailedCartItems.push(Object.assign({}, cartItems[i], {subSaveMoney: parseInt(cartItems[i].amount / 3) * 1 * cartItems[i].price}));
+                        detailedCartItems.push(Object.assign({}, beforePromotedCartItems[i], {subSaveMoney: parseInt(beforePromotedCartItems[i].amount / 3) * 1 * beforePromotedCartItems[i].price}));
 
 
                     }
                     else if (allPromotedInfos[i].type === 'Twenty_Percent_Off') {
-                        detailedCartItems.push(Object.assign({}, cartItems[i], {subSaveMoney: cartItems[i].subTotal * cartItems[i].price}))
+                        detailedCartItems.push(Object.assign({}, beforePromotedCartItems[i], {subSaveMoney: beforePromotedCartItems[i].subTotal * beforePromotedCartItems[i].price}))
 
                     }
                     break;
