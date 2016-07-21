@@ -84,24 +84,24 @@ function getDetailedCartItems(cartItems,allPromotedInfos){
 }
 
 
-function getTotalAndSaveMoney(afterPromotedCartItems){
+function getTotalAndSaveMoney(detailedCartItems){
 
     let total=0,saveMoney=0;
-    for(let i=0;i<afterPromotedCartItems.length;i++)
+    for(let i=0;i<detailedCartItems.length;i++)
     {
-        total+=afterPromotedCartItems[i].subTotal;
-        saveMoney+=afterPromotedCartItems[i].subSaveMoney;
+        total+=detailedCartItems[i].subTotal;
+        saveMoney+=detailedCartItems[i].subSaveMoney;
     }
     total-=saveMoney;
     return Object.assign({},{total:total,saveMoney:saveMoney});
 }
 
-function print(afterPromotedCartItems,totalAndsaveMoney){
+function print(detailedCartItems,totalAndsaveMoney){
 
     let receipt='';
-    for(let i=0;i<afterPromotedCartItems.length;i++)
+    for(let i=0;i<detailedCartItems.length;i++)
     {
-        receipt = receipt +'\n' + '名称:' + afterPromotedCartItems[i].name +',' + '数量:' + afterPromotedCartItems[i].amount + afterPromotedCartItems[i].unit + ',' + '单价:' + afterPromotedCartItems[i].price + '.00(元)' + ',' + '小计:' + (afterPromotedCartItems[i].subTotal-afterPromotedCartItems[i].subSaveMoney) + '.00(元)';
+        receipt = receipt +'\n' + '名称:' + detailedCartItems[i].name +',' + '数量:' + detailedCartItems[i].amount + detailedCartItems[i].unit + ',' + '单价:' + detailedCartItems[i].price + '.00(元)' + ',' + '小计:' + (detailedCartItems[i].subTotal-detailedCartItems[i].subSaveMoney) + '.00(元)';
     }
     receipt=receipt+'\n'+'********************************************************'+'\n'+'总计:'+totalAndsaveMoney.total+'.00(元)'+'\n'+'节省:'+totalAndsaveMoney.saveMoney+'.00(元)';
     return receipt;
