@@ -55,44 +55,34 @@ function getSubTotal(cartItems)
     return beforePromotedCartItems;
 }
 
-function getPromotedCartItems(cartItems,allPromotedInfos){
+function getDetailedCartItems(cartItems,allPromotedInfos){
 
-    let promotedCartItems=[];
+    let detailedCartItems=[];
     for(let i=0;i<cartItems.length;i++)
     {
         for(let j=0;j<allPromotedInfos.length;j++)
         {
             for(let k=0;k<allPromotedInfos[j].barcodes.length;k++)
             {
-                if(cartItems[i].barcode===allPromotedInfos[j].barcodes[k])
-                {
-                    promotedCartItems.push(Object.assign({},cartItems[i],{type:allPromotedInfos[j].type}));
+                if(cartItems[i].barcode===allPromotedInfos[j].barcodes[k]) {
+                    if (allPromotedInfos[j].type === 'BUY_TWO_GET_ONE_FREE') {
+
+                        detailedCartItems.push(Object.assign({}, cartItems[i], {subSaveMoney: parseInt(cartItems[i].amount / 3) * 1 * cartItems[i].price}));
+
+
+                    }
+                    else if (allPromotedInfos[i].type === 'Twenty_Percent_Off') {
+                        detailedCartItems.push(Object.assign({}, cartItems[i], {subSaveMoney: cartItems[i].subTotal * cartItems[i].price}))
+
+                    }
+                    break;
                 }
-                break;
             }
         }
     }
-    return promotedCartItems;
+    return detailedCartItems;
 }
-function getSubSaveMoney(promotedCartItems){
-    let afterPromotedCartItems=[];
-    for(let i=0;i<promotedCartItems.length;i++)
-    {
-        if(promotedCartItems[i].type==='BUY_TWO_GET_ONE_FREE')
-        {
 
-            afterPromotedCartItems.push(Object.assign({},promotedCartItems[i],{subSaveMoney:parseInt(promotedCartItems[i].amount/3)*1*promotedCartItems[i].price}));
-
-
-        }
-        else if(promotedCartItems[i].type==='Twenty_Percent_Off'){
-            afterPromotedCartItems.push(Object.assign({},promotedCartItems[i],{subSaveMoney:promotedCartItems[i].subTotal*promotedCartItems[i].price}))
-
-        }
-        return afterPromotedCartItems;
-    }
-    return afterPromotedCartItems;
-}
 
 function getTotalAndSaveMoney(afterPromotedCartItems){
 

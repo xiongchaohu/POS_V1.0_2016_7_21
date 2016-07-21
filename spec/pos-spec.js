@@ -39,25 +39,15 @@ describe('getSubTotal',function(){
     })
 })
 
-describe('getPromotedCartItems',function(){
+describe('getDetailedCartItems',function(){
     it('should return AfterPromotedCartItems with type',function(){
         let test=[{barcode:'item0001',name:'可乐',unit:'瓶',price:3.00,amount:3,subTotal:9.00}];
         let promotedInfo=[{type:'BUY_TWO_GET_ONE_FREE',barcodes:['item0001']}];
-        let expected=[{barcode:'item0001',name:'可乐',unit:'瓶',price:3.00,amount:3,subTotal:9.00,type:'BUY_TWO_GET_ONE_FREE'}];
-        let result=getPromotedCartItems(test,promotedInfo);
+        let expected=[{barcode:'item0001',name:'可乐',unit:'瓶',price:3.00,amount:3,subTotal:9.00,subSaveMoney:3}];
+        let result=getDetailedCartItems(test,promotedInfo);
         expect(result).toEqual(expected);
     })
 })
-
-describe('getSubSaveMoney',function(){
-    it('should return AfterPromotedDetailCartItems with subSaveMoney',function(){
-        let test=[{barcode:'item0001',name:'可乐',unit:'瓶',price:3.00,amount:3,subTotal:9.00,type:'BUY_TWO_GET_ONE_FREE'}];
-        let expected=[{barcode:'item0001',name:'可乐',unit:'瓶',price:3.00,amount:3,subTotal:9.00,type:'BUY_TWO_GET_ONE_FREE',subSaveMoney:3.00}];
-        let result=getSubSaveMoney(test);
-        expect(result).toEqual(expected);
-    })
-})
-
 
 describe('getTotalAndSaveMoney',function(){
     it('should return object with saveMoney and total',function(){
